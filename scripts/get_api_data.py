@@ -28,6 +28,3 @@ def get_weather_data():
     time = pd.to_datetime(dt, unit='s').strftime('%Y-%m-%d %H:%M')
 
     JsonClassUtils().write_obj_json('./raw_files/%s.json' % time, res_list)
-
-
-get_weather_data()

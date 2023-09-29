@@ -9,11 +9,11 @@ from joblib import dump
 def get_model_from_name(model_name):
     model = None
     if model_name == 'LinearRegression':
-        model = LinearRegression
+        model = LinearRegression()
     elif model_name == 'DecisionTree':
-        model = DecisionTreeRegressor
+        model = DecisionTreeRegressor()
     elif model_name == 'RandomForest':
-        model = RandomForestRegressor
+        model = RandomForestRegressor()
     return model
 
 
@@ -33,7 +33,7 @@ def compute_model_score(model_name, X, y):
     return model_score
 
 
-def train_and_save_model(model_name, X, y, path_to_model='../best_model.pkl'):
+def train_and_save_model(model_name, X, y, path_to_model='./clean_data/best_model.pickle'):
 
     model = get_model_from_name(model_name)
 
@@ -44,7 +44,7 @@ def train_and_save_model(model_name, X, y, path_to_model='../best_model.pkl'):
     dump(model, path_to_model)
 
 
-def prepare_data(path_to_data='../clean_data/fulldata.csv'):
+def prepare_data(path_to_data='./clean_data/fulldata.csv'):
     # reading data
     df = pd.read_csv(path_to_data)
     # ordering data according to city and date
@@ -87,21 +87,14 @@ def prepare_data(path_to_data='../clean_data/fulldata.csv'):
     return features, target
 
 
-def train_best_model(score_lr, score_dt, score_rf):
+def train_best_model(X, y,score_lr, score_dt, score_rf):
 
-    score_dict = [
-        ['LinearRegressionScore', score_lr],
-        ['DecisionTreeScore', score_dt],
-        ['RandomForestScore', score_rf],
+    score_df = [
+        ['LinearRegression', score_lr],
+        ['DecisionTree', score_dt],
+        ['RandomForest', score_rf],
     ]
-    score_df = pd.DataFrame(score_dict, columns=['model_name', 'score']).sort_values('score')
-    best_model_name = score_df.tail(1)['model_name']
+    score_df = pd.DataFrame(score_df, columns=['model_name', 'score']).sort_values('score')
+    best_model_name = score_df.iloc[-1].loc['model_name']
 
     train_and_save_model(best_model_name, X, y)
-
-
-X, y = prepare_data('../clean_data/fulldata.csv')
-score_lr = compute_model_score(LinearRegression(), X, y)
-score_dt = compute_model_score(DecisionTreeRegressor(), X, y)
-score_rf = compute_model_score(RandomForestRegressor(), X, y)
-train_best_model(score_lr, score_dt, score_rf)
