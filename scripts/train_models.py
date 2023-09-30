@@ -17,7 +17,9 @@ def get_model_from_name(model_name):
     return model
 
 
-def compute_model_score(model_name, X, y):
+def compute_model_score(model_name):
+
+    X, y = prepare_data('./clean_data/fulldata.csv')
 
     model = get_model_from_name(model_name)
 
@@ -87,8 +89,9 @@ def prepare_data(path_to_data='./clean_data/fulldata.csv'):
     return features, target
 
 
-def train_best_model(X, y,score_lr, score_dt, score_rf):
+def train_best_model(score_lr, score_dt, score_rf):
 
+    X, y = prepare_data('./clean_data/fulldata.csv')
     score_df = [
         ['LinearRegression', score_lr],
         ['DecisionTree', score_dt],
