@@ -17,9 +17,9 @@ def get_model_from_name(model_name):
     return model
 
 
-def compute_model_score(model_name):
+def compute_model_score(model_name, task_instance):
 
-    X, y = prepare_data('./clean_data/fulldata.csv')
+    X, y = prepare_data('/app/clean_data/fulldata.csv')
 
     model = get_model_from_name(model_name)
 
@@ -32,10 +32,15 @@ def compute_model_score(model_name):
 
     model_score = cross_validation.mean()
 
+    task_instance.xcom_push(
+        key='score',
+        value=model_score
+    )
+
     return model_score
 
 
-def train_and_save_model(model_name, X, y, path_to_model='./clean_data/best_model.pickle'):
+def train_and_save_model(model_name, X, y, path_to_model='/app/clean_data/best_model.pickle'):
 
     model = get_model_from_name(model_name)
 
@@ -46,7 +51,7 @@ def train_and_save_model(model_name, X, y, path_to_model='./clean_data/best_mode
     dump(model, path_to_model)
 
 
-def prepare_data(path_to_data='./clean_data/fulldata.csv'):
+def prepare_data(path_to_data='/app/clean_data/fulldata.csv'):
     # reading data
     df = pd.read_csv(path_to_data)
     # ordering data according to city and date
@@ -89,9 +94,20 @@ def prepare_data(path_to_data='./clean_data/fulldata.csv'):
     return features, target
 
 
-def train_best_model(score_lr, score_dt, score_rf):
-
-    X, y = prepare_data('./clean_data/fulldata.csv')
+def train_best_model(task_instance):
+    score_lr = task_instance.xcom_pull(
+            key="score",
+            task_ids=['get_linear_regression_score']
+        )
+    score_dt = task_instance.xcom_pull(
+            key="score",
+            task_ids=['get_decision_tree_score']
+        )
+    score_rf = task_instance.xcom_pull(
+            key="score",
+            task_ids=['get_random_forest_score']
+        )
+    X, y = prepare_data('/app/clean_data/fulldata.csv')
     score_df = [
         ['LinearRegression', score_lr],
         ['DecisionTree', score_dt],

@@ -8,9 +8,7 @@ from airflow.utils.dates import days_ago
 from scripts.get_api_data import get_weather_data
 from scripts.add_new_data import add_new_raw_data_to_clean_data
 from scripts.train_models import compute_model_score
-
-
-cities = ['paris', 'london', 'washington']
+from scripts.train_models import train_best_model
 
 
 my_dag = DAG(
@@ -56,10 +54,38 @@ get_linear_regression_score = PythonOperator(
     task_id='get_linear_regression_score',
     python_callable=compute_model_score,
     op_kwargs= {
-        'filename': 'fulldata', 
-        'n_files': None
+        'model_name': 'LinearRegression',
     },
     dag=my_dag
 )
 
+
+get_decision_tree_score = PythonOperator(
+    task_id='get_decision_tree_score',
+    python_callable=compute_model_score,
+    op_kwargs= {
+        'model_name': 'DecisionTree',
+    },
+    dag=my_dag
+)
+
+get_random_forest_score = PythonOperator(
+    task_id='get_random_forest_score',
+    python_callable=compute_model_score,
+    op_kwargs= {
+        'model_name': 'RandomForest',
+    },
+    dag=my_dag
+)
+
+train_best_model = PythonOperator(
+    task_id='train_best_model',
+    python_callable=train_best_model,
+    dag=my_dag
+)
+
 get_data_from_api >> [update_fresh_data, update_fulldata]
+
+update_fulldata >> [get_linear_regression_score, get_decision_tree_score, get_random_forest_score]
+
+[get_linear_regression_score, get_decision_tree_score, get_random_forest_score] >> train_best_model
