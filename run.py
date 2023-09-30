@@ -1,6 +1,6 @@
 import sys
 import os
-sys.path.append("./")
+sys.path.append("dags/")
 
 from scripts.add_new_data import add_new_raw_data_to_clean_data
 from scripts.get_api_data import get_weather_data
