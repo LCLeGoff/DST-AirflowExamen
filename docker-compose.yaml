@@ -59,7 +59,7 @@ x-airflow-common: &airflow-common
     AIRFLOW__SMTP__SMTP_PASSWORD: "cfsrvkongsobheta"
     AIRFLOW__SMTP__SMTP_MAIL_FROM: "de.airflow@gmail.com"
 
-    _PIP_ADDITIONAL_REQUIREMENTS: ${_PIP_ADDITIONAL_REQUIREMENTS:- scikit-learn}
+    _PIP_ADDITIONAL_REQUIREMENTS: ${_PIP_ADDITIONAL_REQUIREMENTS:- scikit-learn python-dotenv}
   volumes:
     - ./dags:/opt/airflow/dags
     - ./logs:/opt/airflow/logs
@@ -70,6 +70,12 @@ x-airflow-common: &airflow-common
     - type: bind
       source: ./raw_files
       target: /app/raw_files
+    - type: bind
+      source: ./scripts
+      target: /app/scripts
+    - type: bind
+      source: ./utils
+      target: /app/utils
   user: "${AIRFLOW_UID:-50000}:${AIRFLOW_GID:-50000}"
   depends_on:
     redis:
