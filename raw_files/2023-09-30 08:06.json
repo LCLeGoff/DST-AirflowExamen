@@ -1,0 +1,134 @@
+[
+  {
+    "coord": {
+      "lon": 2.3488,
+      "lat": 48.8534
+    },
+    "weather": [
+      {
+        "id": 803,
+        "main": "Clouds",
+        "description": "broken clouds",
+        "icon": "04d"
+      }
+    ],
+    "base": "stations",
+    "main": {
+      "temp": 286.13,
+      "feels_like": 285.81,
+      "temp_min": 284.25,
+      "temp_max": 287.03,
+      "pressure": 1027,
+      "humidity": 89
+    },
+    "visibility": 10000,
+    "wind": {
+      "speed": 3.6,
+      "deg": 80
+    },
+    "clouds": {
+      "all": 75
+    },
+    "dt": 1696060491,
+    "sys": {
+      "type": 2,
+      "id": 2041230,
+      "country": "FR",
+      "sunrise": 1696052872,
+      "sunset": 1696095209
+    },
+    "timezone": 7200,
+    "id": 2988507,
+    "name": "Paris",
+    "cod": 200
+  },
+  {
+    "coord": {
+      "lon": -0.1257,
+      "lat": 51.5085
+    },
+    "weather": [
+      {
+        "id": 802,
+        "main": "Clouds",
+        "description": "scattered clouds",
+        "icon": "03d"
+      }
+    ],
+    "base": "stations",
+    "main": {
+      "temp": 285.39,
+      "feels_like": 285.1,
+      "temp_min": 283.35,
+      "temp_max": 287.24,
+      "pressure": 1026,
+      "humidity": 93
+    },
+    "visibility": 10000,
+    "wind": {
+      "speed": 1.54,
+      "deg": 230
+    },
+    "clouds": {
+      "all": 37
+    },
+    "dt": 1696060861,
+    "sys": {
+      "type": 2,
+      "id": 2006068,
+      "country": "GB",
+      "sunrise": 1696053522,
+      "sunset": 1696095746
+    },
+    "timezone": 3600,
+    "id": 2643743,
+    "name": "London",
+    "cod": 200
+  },
+  {
+    "coord": {
+      "lon": -120.5015,
+      "lat": 47.5001
+    },
+    "weather": [
+      {
+        "id": 802,
+        "main": "Clouds",
+        "description": "scattered clouds",
+        "icon": "03n"
+      }
+    ],
+    "base": "stations",
+    "main": {
+      "temp": 278.37,
+      "feels_like": 276.92,
+      "temp_min": 276.34,
+      "temp_max": 279.77,
+      "pressure": 1015,
+      "humidity": 73,
+      "sea_level": 1015,
+      "grnd_level": 956
+    },
+    "visibility": 10000,
+    "wind": {
+      "speed": 1.86,
+      "deg": 291,
+      "gust": 1.7
+    },
+    "clouds": {
+      "all": 43
+    },
+    "dt": 1696061164,
+    "sys": {
+      "type": 2,
+      "id": 2003593,
+      "country": "US",
+      "sunrise": 1696082358,
+      "sunset": 1696124677
+    },
+    "timezone": -25200,
+    "id": 5815135,
+    "name": "Washington",
+    "cod": 200
+  }
+]

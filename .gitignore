@@ -3,7 +3,6 @@ venv/*
 logs/*
 airflow.sh
 docker-compose.yaml.1
-raw_files/*
 
 */__pycache__/
 */__init__.py
